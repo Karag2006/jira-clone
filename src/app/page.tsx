@@ -1,29 +1,21 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+"use client";
+
+import { useCurrent } from "@/features/auth/api/use-current";
+import { useRouter } from "next/navigation";
+
+import { useEffect } from "react";
 
 const Home = () => {
-  return (
-    <div>
-      <div className="flex gap-4 m-4">
-        <Button>Primary</Button>
+  const router = useRouter();
+  const { data, isLoading } = useCurrent();
 
-        <Button variant="secondary">Secondary</Button>
+  useEffect(() => {
+    if (!data && !isLoading) {
+      router.push("/sign-in");
+    }
+  }, [data]);
 
-        <Button variant="destructive">Destructive</Button>
-
-        <Button variant="ghost">Ghost</Button>
-
-        <Button variant="muted">Muted</Button>
-
-        <Button variant="outline">Outline</Button>
-
-        <Button variant="teritary">Teritary</Button>
-      </div>
-      <div>
-        <Input />
-      </div>
-    </div>
-  );
+  return <div>Authorized only</div>;
 };
 
 export default Home;
