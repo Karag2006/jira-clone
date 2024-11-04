@@ -1,21 +1,10 @@
-"use client";
-
-import { useCurrent } from "@/features/auth/api/use-current";
+import { getCurrent } from "@/features/auth/actions";
 import { UserButton } from "@/features/auth/components/user-button";
+import { redirect } from "next/navigation";
 
-import { useRouter } from "next/navigation";
-
-import { useEffect } from "react";
-
-const Home = () => {
-  const router = useRouter();
-  const { data, isLoading } = useCurrent();
-
-  useEffect(() => {
-    if (!data && !isLoading) {
-      router.push("/sign-in");
-    }
-  }, [data]);
+const Home = async () => {
+  const user = await getCurrent();
+  if (!user) redirect("/sign-in");
 
   return (
     <div>
