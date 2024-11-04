@@ -1,6 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useCurrent } from "@/features/auth/api/use-current";
+import { useLogout } from "@/features/auth/api/use-logout";
 import { useRouter } from "next/navigation";
 
 import { useEffect } from "react";
@@ -8,6 +10,7 @@ import { useEffect } from "react";
 const Home = () => {
   const router = useRouter();
   const { data, isLoading } = useCurrent();
+  const { mutate } = useLogout();
 
   useEffect(() => {
     if (!data && !isLoading) {
@@ -15,7 +18,12 @@ const Home = () => {
     }
   }, [data]);
 
-  return <div>Authorized only</div>;
+  return (
+    <div>
+      <div>Authorized only</div>
+      <Button onClick={() => mutate()}>Logout</Button>
+    </div>
+  );
 };
 
 export default Home;
