@@ -20,6 +20,7 @@ export const useRegister = () => {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
+
       return await response.json();
     },
     onSuccess: () => {
