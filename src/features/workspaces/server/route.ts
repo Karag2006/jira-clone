@@ -9,14 +9,14 @@ import { ID } from "node-appwrite";
 
 const app = new Hono().post(
   "/",
-  zValidator("json", createWorkspaceSchema),
+  zValidator("form", createWorkspaceSchema),
   sessionMiddleware,
   async (c) => {
     const databases = c.get("databases");
     const storage = c.get("storage");
     const user = c.get("user");
 
-    const { name, image } = c.req.valid("json");
+    const { name, image } = c.req.valid("form");
 
     let uploadedImageUrl: string | undefined;
 
@@ -32,7 +32,7 @@ const app = new Hono().post(
         file.$id
       );
 
-      uploadedImageUrl = `date:image/png;base64,${Buffer.from(
+      uploadedImageUrl = `data:image/png;base64,${Buffer.from(
         arrayBuffer
       ).toString("base64")}`;
     }
