@@ -1,1 +1,9 @@
-@import "./imports/globals/index";
+@use "./imports/globals/index";
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
